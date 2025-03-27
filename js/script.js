@@ -7,13 +7,13 @@ const button = document.querySelector('.btn');
 
 const inputValues = document.querySelectorAll('.form-control');
 
+const generatedNumbers = [];
+
 // funzione per generare i numeri random
 const randomNumbers = () => Math.floor(Math.random() * 50) + 1;
 
 // funzione per inserire i numeri nella ul
 const pickNumbers = (node) => {
-
-    const generatedNumbers = [];
     while (generatedNumbers.length < 5) {
         let randomNumber = randomNumbers();
         if (!generatedNumbers.includes(randomNumber)) {
@@ -23,13 +23,13 @@ const pickNumbers = (node) => {
     generatedNumbers.forEach(number => {
         node.innerHTML += `<li>${number}</li>`
     });
-    console.log(generatedNumbers);
+    console.log(`I numeri generati sono ${generatedNumbers}`);
 
 }
 pickNumbers(numberList);
 
 // funzione per effettuare un countdown da 30 secondi
-let count = 30;
+let count = 1;
 countdown.innerHTML = count--;
 const startGame = setInterval(() => {
     if (count >= 0) {
@@ -44,3 +44,27 @@ const startGame = setInterval(() => {
 }, 1000);
 
 startGame;
+
+let numCounter = 0;
+const result = (a, b) => {
+    for (i = 0; i < a.length; i++) {
+        if (b.includes(a[i])) {
+            // console.log(a[i]);
+            numCounter++;
+        }
+    }
+    console.log(`Hai indovinato ${numCounter} numeri!`);
+}
+
+// metto in ascolto il bottone per controllare se i numeri inseriti sono uguali a quelli generati
+button.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    // salvo i valori degli input in un array
+    const userNumbers = [];
+    for (const value of inputValues.values()) {
+        userNumbers.push(parseInt(value.value));
+    }
+    result(generatedNumbers, userNumbers);
+    console.log(`I numeri dell'utente sono: ${userNumbers}`);
+});
