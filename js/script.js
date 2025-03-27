@@ -4,6 +4,7 @@ const numberList = document.getElementById('numbers-list'); // lista numeri da f
 const answersForm = document.getElementById('answers-form'); // lista input per risposta
 const instructions = document.getElementById('instructions'); // stringa dinamica
 const button = document.querySelector('.btn');
+const message = document.getElementById('message');
 
 const inputValues = document.querySelectorAll('.form-control');
 
@@ -29,7 +30,7 @@ const pickNumbers = (node) => {
 pickNumbers(numberList);
 
 // funzione per effettuare un countdown da 30 secondi
-let count = 1;
+let count = 30;
 countdown.innerHTML = count--;
 const startGame = setInterval(() => {
     if (count >= 0) {
@@ -67,4 +68,13 @@ button.addEventListener('click', (event) => {
     }
     result(generatedNumbers, userNumbers);
     console.log(`I numeri dell'utente sono: ${userNumbers}`);
+
+    // stampo in pagina l'esito
+    if (numCounter === 0) {
+        message.innerHTML = 'Non hai indovinato nessun numero.'
+    } else {
+        message.innerHTML = `Hai indovinato ${numCounter} numeri!`
+        message.classList.remove('text-danger');
+        message.classList.add('text-success', 'fs-3');
+    }
 });
